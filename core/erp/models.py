@@ -8,7 +8,24 @@ from PIL import Image
 
 # Create your models here.
 
+class Type(models.Model):
+    nombre = models.CharField(max_length=150, verbose_name="Nombre")
+    x=models.CharField(max_length=150, verbose_name="X")
+   
+    def __str__(self):
+        return self.name
+        
+
+    class Meta:
+        verbose_name = 'Tipo'
+        verbose_name_plural = 'Tipos'
+        ordering = ['id']
+         
+
+
+
 class Trabajador(models.Model):
+    type = models.ForeignKey(Type, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=150, verbose_name="Nombre")
     rut = models.CharField(max_length=10, unique=True, verbose_name="rut")
     fecha_registro = models.DateField(default=datetime.now, verbose_name="Fecha de Registro")
